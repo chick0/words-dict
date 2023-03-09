@@ -1,0 +1,33 @@
+<nav class="navbar navbar-expand-lg">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="/">사전</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbar">
+            <ul class="navbar-nav me-auto">
+                {% if 'user.id' in session %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('word.add') }}">단어 추가</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('category.control') }}">카테고리 관리</a>
+                    </li>
+                {% endif %}
+            </ul>
+            <ul class="navbar-nav ms-md-auto">
+                {% if 'user.id' in session %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('auth.logout') }}">로그아웃</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="btn btn-dark" href="{{ url_for('auth.login') }}">
+                            <i class="fa-brands fa-discord"></i> 로그인
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

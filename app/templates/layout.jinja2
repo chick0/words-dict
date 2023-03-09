@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko" data-bs-theme="dark">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="author" content="chick_0" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="robots" content="noindex, nofollow" />
+        <title>사전</title>
+        <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/static/pretendard.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+        {% block head %}{% endblock %}
+    </head>
+    <body>
+        {% include "navbar.jinja2" %}
+
+        <div class="container">
+        {% block content %}{% endblock %}
+        </div>
+
+        <script src="{{ url_for('static', filename='bootstrap.bundle.min.js') }}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        {% with messages = get_flashed_messages(category_filter=["swal-error"]) %}
+            {% if messages %}
+                <script>
+                    {% for message in messages %}
+                        Swal.fire({
+                            html: `{{ message }}`,
+                            icon: 'error',
+                            confirmButtonText: '확인',
+                            timer: 5000,
+                            timerProgressBar: true
+                        });
+                    {% endfor %}
+                </script>
+            {% endif %}
+        {% endwith %}
+
+        {% with messages = get_flashed_messages(category_filter=["swal-warning"]) %}
+            {% if messages %}
+                <script>
+                    {% for message in messages %}
+                        Swal.fire({
+                            html: `{{ message }}`,
+                            icon: 'warning',
+                            confirmButtonText: '확인',
+                            timer: 5000,
+                            timerProgressBar: true
+                        });
+                    {% endfor %}
+                </script>
+            {% endif %}
+        {% endwith %}
+
+        {% with messages = get_flashed_messages(category_filter=["swal-success"]) %}
+            {% if messages %}
+                <script>
+                    {% for message in messages %}
+                        Swal.fire({
+                            html: `{{ message }}`,
+                            icon: 'success',
+                            confirmButtonText: '확인',
+                            timer: 5000,
+                            timerProgressBar: true
+                        });
+                    {% endfor %}
+                </script>
+            {% endif %}
+        {% endwith %}
+    </body>
+</html>

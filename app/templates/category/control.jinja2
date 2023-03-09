@@ -1,0 +1,37 @@
+{% extends "layout.jinja2" %}
+{% block content %}
+<div class="py-3 text-center">
+    <h1>카테고리 관리</h1>
+</div>
+
+<div class="py-5">
+    <div id="display"></div>
+</div>
+
+<script>
+    let category_list = []
+    {% for category in category_list %}
+        category_list.push({
+            id: {{ category.id }},
+            text: `{{ category.text }}`,
+            parent: {{ 'null' if category.parent is none else category.parent }}
+        })
+    {% endfor %}
+
+    category_list.filter(x => x.parent == null).forEach((category) => {
+        let div = document.createElement("div")
+        div.id = "category-" + category.id
+        div.innerText = category.text
+
+        document.getElementById("display").appendChild(div)
+    })
+
+    category_list.filter(x => x.parent != null).forEach((category) => {
+        let div = document.createElement("div")
+        div.id = "category-" + category.id
+        div.innerText = category.text
+
+        document.getElementById(`category-${category.parent}`).appendChild(div)
+    })
+</script>
+{% endblock %}

@@ -1,0 +1,13 @@
+{
+    "name": "words-dict-prettier",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "p": "prettier ./app/static --check",
+        "p:write": "prettier ./app/static --write"
+    },
+    "dependencies": {
+        "prettier": "^2.8.4"
+    },
+    "packageManager": "yarn@3.4.1"
+}
