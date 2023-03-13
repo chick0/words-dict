@@ -1,37 +1,33 @@
 {% extends "layout.jinja2" %}
 {% block content %}
-<div class="py-3 text-center">
-    <h1>카테고리 관리</h1>
+<div class="py-5 d-block d-sm-flex">
+    <div class="flex-shrink-0 p-3 pt-0 stage-area">
+        <ul id="display" class="nav nav-pills flex-column mb-auto"></ul>
+    </div>
+    <div class="content-area">
+        <h1>카테고리 관리</h1>
+        <p class="lead">관리할 카테고리를 선택해주세요.</p>
+
+        <div id="category-detail" class="py-3 visually-hidden">
+            <div class="mb-4">
+                <label for="text" class="form-label">이름</label>
+                <input type="text" id="text" class="form-control" />
+                <p class="help text-danger"><b>주의!</b> 카테고리 이름을 빈 칸으로 저장하면 해당 카테고리가 삭제됩니다.</p>
+            </div>
+
+            <div class="mb-4">
+                <label for="parent" class="col-form-label">상위 카테고리</label>
+                <select class="form-select" id="parent"></select>
+            </div>
+        </div>
+
+        <div class="d-flex gap-2">
+            <button id="save" class="btn btn-primary btn-lg w-50">저장</button>
+            <button id="new" class="btn btn-warning btn-lg w-50">새 카테고리 만들기</button>
+        </div>
+    </div>
 </div>
 
-<div class="py-5">
-    <div id="display"></div>
-</div>
-
-<script>
-    let category_list = []
-    {% for category in category_list %}
-        category_list.push({
-            id: {{ category.id }},
-            text: `{{ category.text }}`,
-            parent: {{ 'null' if category.parent is none else category.parent }}
-        })
-    {% endfor %}
-
-    category_list.filter(x => x.parent == null).forEach((category) => {
-        let div = document.createElement("div")
-        div.id = "category-" + category.id
-        div.innerText = category.text
-
-        document.getElementById("display").appendChild(div)
-    })
-
-    category_list.filter(x => x.parent != null).forEach((category) => {
-        let div = document.createElement("div")
-        div.id = "category-" + category.id
-        div.innerText = category.text
-
-        document.getElementById(`category-${category.parent}`).appendChild(div)
-    })
-</script>
+<script src="{{ url_for('static', filename='category/manage.js') }}"></script>
+<script src="{{ url_for('static', filename='category/render.js') }}"></script>
 {% endblock %}

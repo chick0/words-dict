@@ -1,0 +1,57 @@
+.stage-area {
+    width: 280px;
+    height: max-content;
+    position: sticky;
+    top: 0;
+}
+
+.content-area {
+    width: 100%;
+    overflow-x: auto;
+    word-wrap: break-word;
+}
+
+@media (max-width: 576px) {
+    .stage-area {
+        position: static;
+        width: 100%;
+    }
+}
+
+.btn-toggle::before {
+    display: inline-block;
+    width: 1.25em;
+    margin-right: 3px;
+    line-height: 0;
+    color: var(--bs-primary);
+    font-family: var(--bs-font-monospace);
+    content: ">";
+    transition: transform 0.35s ease;
+    transform-origin: 0.5em 50%;
+}
+
+.btn-toggle[aria-expanded="true"]::before {
+    transform: rotate(90deg);
+}
+
+.btn-toggle-nav button {
+    padding: 0.1875rem 0.5rem;
+    margin-top: 0.125rem;
+    margin-left: 1.25rem;
+    text-align: left;
+    text-decoration: none;
+    background-color: transparent;
+    border-color: transparent;
+    color: var(--bs-text);
+}
+
+.is-focused {
+    color: #fff !important;
+    font-weight: bold;
+}
+
+.btn-toggle-nav button:hover,
+.btn-toggle-nav button:focus {
+    outline: none;
+    text-decoration: underline 2px var(--bs-primary);
+}
