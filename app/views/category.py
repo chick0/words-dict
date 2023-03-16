@@ -104,6 +104,12 @@ def control_post(user):
 
     try:
         text = json['text'].strip()
+
+        if text == "-":
+            return {
+                "status": False,
+                "message": "해당 카테고리 이름은 사용할 수 없습니다.<br>시스템이 사용중인 카테고리 입니다."
+            }
     except KeyError:
         return {
             "status": False,

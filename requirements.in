@@ -4,5 +4,4 @@ flask-migrate
 mysqlclient
 requests
 python-dotenv
-mistune
 waitress

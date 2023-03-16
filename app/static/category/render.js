@@ -2,20 +2,25 @@ function getArea(category) {
     const li = document.createElement("li")
     li.classList.add("mb-1")
 
-    const textId = `category-text-${category.id}`
-    const parentId = `category-text-${category.parent}`
+    const textId = `category-${category.id}`
+    const parentId = `category-${category.parent}`
     const isManageMode = window.categoryManage ?? false
-
-    console.log("cat: render->getArea", category)
 
     if (category.parent == null) {
         const button = document.createElement("button")
         button.classList.add("btn", "btn-toggle", "border", "border-0", "text-black")
 
-        if (!isManageMode) button.setAttribute("data-bs-toggle", "collapse")
+        if (!isManageMode) {
+            button.setAttribute("data-bs-toggle", "collapse")
+        }
 
         button.setAttribute("data-bs-target", "#" + textId)
-        button.setAttribute("aria-expanded", "true")
+
+        if (isManageMode) {
+            button.setAttribute("aria-expanded", "true")
+        } else {
+            button.setAttribute("aria-expanded", "false")
+        }
 
         button.innerText = category.text
 
@@ -29,8 +34,12 @@ function getArea(category) {
 
         const text = document.createElement("div")
         text.id = textId
-        text.classList.add("collapse", "show")
+        text.classList.add("collapse")
         text.setAttribute("data-bs-parent", "#display")
+
+        if (isManageMode) {
+            text.classList.add("show")
+        }
 
         li.appendChild(text)
 
@@ -45,7 +54,9 @@ function getArea(category) {
         ul.appendChild(li)
 
         const button = document.createElement("button")
+        button.id = `category-${category.id}`
         button.innerText = category.text
+        button.dataset.parentId = parentId
 
         button.addEventListener("click", () => {
             if (isManageMode) {
@@ -74,12 +85,12 @@ document.addEventListener("DOMContentLoaded", () => {
         .then((resp) => resp.json())
         .then((json) => {
             // 상위 카테고리 렌더링
-            json.filter(x => x.parent == null).forEach((category) => {
+            json.filter((x) => x.parent == null).forEach((category) => {
                 getArea(category)
             })
 
             // 하위 카테고리 렌더링
-            json.filter(x => x.parent != null).forEach((category) => {
+            json.filter((x) => x.parent != null).forEach((category) => {
                 getArea(category)
             })
         })

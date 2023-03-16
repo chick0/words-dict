@@ -1,0 +1,29 @@
+{% extends "layout.jinja2" %}
+{% block content %}
+<div class="py-5 d-block d-sm-flex">
+    <div class="flex-shrink-0 p-3 pt-0 stage-area">
+        <ul id="display" class="nav nav-pills flex-column mb-auto"></ul>
+    </div>
+    <div class="content-area">
+        <h1>{{ word.word }}</h1>
+        <p class="lead">{{ word.author|get_user_block|safe }}</p>
+
+        <div class="py-3">
+            {{ word.meaning|safe }}
+        </div>
+
+        <ul>
+            <li><b>작성일:</b> {{ word.created_at }}</li>
+            {% if word.updated_at is not none %}
+                <li><b>수정일:</b> {{ word.updated_at }}</li>
+            {% endif %}
+        </ul>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='category/render.js') }}"></script>
+{% if word.category is not none %}
+    <script src="{{ url_for('static', filename='category/open.js') }}"></script>
+    <script>searchCategory({{ word.category }})</script>
+{% endif %}
+{% endblock %}

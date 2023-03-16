@@ -33,9 +33,6 @@ def create_app():
     app.register_error_handler(405, error.not_found_handler)
 
     from . import tools
-    app.add_template_filter(tools.markdown_to_html)
-    app.add_template_filter(tools.get_date)
-    app.add_template_filter(tools.timedelta_to_string)
-    app.add_template_filter(tools.get_avatar_from_user)
+    app.add_template_filter(tools.get_user_block)
 
     return app

@@ -40,8 +40,6 @@ markupsafe==2.1.2
     #   jinja2
     #   mako
     #   werkzeug
-mistune==2.0.5
-    # via -r requirements.in
 mysqlclient==2.1.1
     # via -r requirements.in
 python-dotenv==0.21.1
