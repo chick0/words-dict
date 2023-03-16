@@ -10,7 +10,7 @@ function searchCategory(id) {
     let tryToGetElement = setInterval(() => {
         if (element == null) {
             console.warn(
-                "카테고리을 버튼 찾을 수 없습니다... 카테고리 정보를 로딩하는 과정이 끝나지 않았을 가능성이 높습니다. 잠시뒤에도 해당 메시지가 반복적으로 나온다면 개발자한테 연락해주세요."
+                "카테고리을 버튼 찾을 수 없습니다... 카테고리 정보를 로딩하는 과정이 끝나지 않았을 가능성이 높습니다. 잠시뒤에도 해당 메시지가 반복적으로 나온다면 담당자한테 연락해주세요."
             )
             element = document.getElementById(elementId)
         } else {

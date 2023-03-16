@@ -1,7 +1,7 @@
 {% extends "layout.jinja2" %}
 {% block content %}
 <div class="py-3 text-center">
-    <h1>단어 추가</h1>
+    <h1>단어 수정</h1>
 </div>
 
 <div class="py-5">
@@ -15,7 +15,7 @@
         <div class="mb-4">
             <label for="category" class="form-label">카테고리</label>
             <select id="category" name="category" class="form-select form-select-lg">
-                <option value="x" selected>없음</option>
+                <option value="x">없음</option>
                 {% for category in category_list %}
                     <option value="{{ category.id }}">{{ category.text }}</option>
                 {% endfor %}
@@ -39,9 +39,12 @@
         selector: "textarea",
         language: "ko_KR",
         height: "90vh",
-        plugins: "image emoticons media mediaembed",
+        plugins: "image emoticons media",
         toolbar: "undo redo | blocks | bold italic | alignleft aligncenter alignright alignjustify | outdent indent | emoticons media image",
         images_file_types: "png,jpg,svg,webp"
     })
 </script>
+
+<script src="{{ url_for('static', filename='word/load.js') }}"></script>
+<script>fetchData({{ word_id }})</script>
 {% endblock %}

@@ -1,0 +1,22 @@
+{% extends "layout.jinja2" %}
+{% block content %}
+<div class="row d-flex justify-content-center align-items-center">
+    <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+        <div class="card" style="border-radius: 15px;">
+            <form method="post">
+                <div class="card-body p-5">
+                    <h1 class="text-center">삭제 확인</h1>
+                    <p class="lead text-center mb-5"><b>{{ word }}</b> 단어를 사전에서 삭제하시겠습니까?</p>
+
+                    <div class="mt-4">
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-danger btn-lg w-50" type="submit">예 <b>(삭제)</b></button>
+                            <a class="btn btn-primary btn-lg w-50" href="{{ href }}">아니요 <b>(취소)</b></a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
