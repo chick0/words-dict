@@ -86,8 +86,13 @@ document.addEventListener("DOMContentLoaded", () => {
         .then((json) => {
             // '카테고리 없음' 카테고리 렌더링
             if (!isManageMode) {
+                const liParent = document.createElement("li")
+                liParent.classList.add("mb-1")
+                display.appendChild(liParent)
+
                 const ul = document.createElement("ul")
                 ul.classList.add("btn-toggle-nav", "list-unstyled", "fw-normal", "pb-1", "small")
+                liParent.appendChild(ul)
 
                 const li = document.createElement("li")
                 ul.appendChild(li)
@@ -101,7 +106,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 })
 
                 li.appendChild(button)
-                display.appendChild(ul)
             }
 
             // 상위 카테고리 렌더링
