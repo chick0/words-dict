@@ -4,7 +4,6 @@ function getArea(category) {
 
     const textId = `category-${category.id}`
     const parentId = `category-${category.parent}`
-    const isManageMode = window.categoryManage ?? false
 
     if (category.parent == null) {
         const button = document.createElement("button")
@@ -73,6 +72,7 @@ function getArea(category) {
 }
 
 const display = document.getElementById("display")
+const isManageMode = window.categoryManage ?? false
 
 document.addEventListener("DOMContentLoaded", () => {
     let style = document.createElement("link")
@@ -84,6 +84,26 @@ document.addEventListener("DOMContentLoaded", () => {
     fetch("/category")
         .then((resp) => resp.json())
         .then((json) => {
+            // '카테고리 없음' 카테고리 렌더링
+            if (!isManageMode) {
+                const ul = document.createElement("ul")
+                ul.classList.add("btn-toggle-nav", "list-unstyled", "fw-normal", "pb-1", "small")
+
+                const li = document.createElement("li")
+                ul.appendChild(li)
+
+                const button = document.createElement("button")
+                button.id = "null"
+                button.innerText = "카테고리 없음"
+
+                button.addEventListener("click", () => {
+                    alert("페이지 이동")
+                })
+
+                li.appendChild(button)
+                display.appendChild(ul)
+            }
+
             // 상위 카테고리 렌더링
             json.filter((x) => x.parent == null).forEach((category) => {
                 getArea(category)

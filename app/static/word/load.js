@@ -24,7 +24,7 @@ function fetchData(wordId) {
                 Swal.close()
 
                 document.getElementById("word").value = json.payload.word
-                document.querySelector("select").value = json.payload.category ?? 'x'
+                document.querySelector("select").value = json.payload.category ?? "x"
                 tinymce.activeEditor.setContent(json.payload.meaning)
             } else {
                 Swal.fire({

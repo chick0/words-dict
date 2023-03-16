@@ -1,10 +1,5 @@
 function searchCategory(id) {
-    if (id == null) {
-        console.warn("해당 단어는 선택된 카테고리가 없습니다.")
-        return
-    }
-
-    const elementId = `category-${id}`
+    const elementId = id == null ? "null" : `category-${id}`
     let element = document.getElementById(elementId)
 
     let tryToGetElement = setInterval(() => {
@@ -15,7 +10,12 @@ function searchCategory(id) {
             element = document.getElementById(elementId)
         } else {
             clearInterval(tryToGetElement)
-            openCategory(element)
+
+            if (id == null) {
+                selectCategory(element)
+            } else {
+                openCategory(element)
+            }
         }
     }, 100)
 }
@@ -32,6 +32,10 @@ function openCategory(element) {
         openCollapse(element)
     } else {
         openCollapse(parent)
-        element.classList.add("is-focused")
+        selectCategory(element)
     }
+}
+
+function selectCategory(element) {
+    element.classList.add("is-focused")
 }

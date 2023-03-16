@@ -27,8 +27,10 @@
 </div>
 
 <script src="{{ url_for('static', filename='category/render.js') }}"></script>
-{% if word.category is not none %}
-    <script src="{{ url_for('static', filename='category/open.js') }}"></script>
+<script src="{{ url_for('static', filename='category/open.js') }}"></script>
+{% if word.category is none %}
+    <script>searchCategory(null)</script>
+{% else %}
     <script>searchCategory({{ word.category }})</script>
 {% endif %}
 {% endblock %}
