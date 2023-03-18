@@ -78,7 +78,7 @@ function getArea(category) {
 
             li.appendChild(
                 getButton({
-                    id: null,
+                    id: -category.parent,
                     text: "하위 카테고리 없음",
                     parent: category.parent,
                 })
