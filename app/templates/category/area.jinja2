@@ -1,0 +1,33 @@
+{% extends "layout.jinja2" %}
+{% block content %}
+<div class="py-5 d-block d-sm-flex">
+    <div class="flex-shrink-0 p-3 pt-0 stage-area">
+        <ul id="display" class="nav nav-pills flex-column mb-auto"></ul>
+    </div>
+    <div class="content-area">
+        {% if category is none %}
+            <h1>카테고리 없음</h1>
+        {% else %}
+            <h1>{{ category.text }}</h1>
+        {% endif %}
+
+        <div class="py-5">
+            <ul class="p-0">
+                {% for word in word_list %}
+                    <li>
+                        <a href="{{ url_for('word.warp', word_id=word.id) }}">{{ word.word }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='category/render.js') }}"></script>
+<script src="{{ url_for('static', filename='category/open.js') }}"></script>
+{% if category is none %}
+    <script>searchCategory(null)</script>
+{% else %}
+    <script>searchCategory({{ category.id }})</script>
+{% endif %}
+{% endblock %}

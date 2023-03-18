@@ -1,3 +1,5 @@
+from typing import Optional
+
 from flask import Blueprint
 from flask import request
 from flask import render_template
@@ -7,6 +9,7 @@ from ..models import Category
 from ..models import Word
 from ..deco import login_required
 from ..utils import ok
+from ..utils import fail
 
 bp = Blueprint("category", __name__, url_prefix="/category")
 
@@ -219,3 +222,43 @@ def control_post(user):
 
     ok("변경사항이 저장되었습니다.")
     return {"status": True}
+
+
+@bp.get("/area/<string:category_text>")
+@bp.get("/area/<string:category_text>/<string:subcategory_text>")
+@login_required
+def area(user, category_text: str, subcategory_text: Optional[str] = None):
+    if category_text == "-":
+        return render_template(
+            "category/area.jinja2",
+            category=None,
+            word_list=Word.query.filter_by(
+                category=None
+            ).all()
+        )
+
+    parent = Category.query.filter_by(
+        text=category_text
+    ).first()
+
+    if parent is None:
+        return fail("등록된 카테고리가 아닙니다.")
+
+    if subcategory_text is None:
+        cd = parent
+    else:
+        cd = Category.query.filter_by(
+            text=subcategory_text,
+            parent=parent.id
+        ).first()
+
+        if cd is None:
+            return fail("등록된 카테고리가 아닙니다.")
+
+    return render_template(
+        "category/area.jinja2",
+        category=cd,
+        word_list=Word.query.filter_by(
+            category=cd.id
+        ).all()
+    )

@@ -80,6 +80,16 @@ def add_post(user):
     return redirect(url_for("word.get", category=get_category_name(category), word=wd.word))
 
 
+@bp.get("/<int:word_id>")
+@login_required
+def warp(user, word_id: int):
+    word: Word = Word.query.filter_by(
+        id=word_id
+    ).first()
+
+    return redirect(url_for("word.get", category=get_category_name(word.category), word=word.word))
+
+
 @bp.get("/<string:category>/<string:word>")
 @login_required
 def get(user, category: str, word: str):  # type: ignore

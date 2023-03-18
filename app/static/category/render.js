@@ -14,7 +14,20 @@ function getButton(category) {
         if (isManageMode) {
             categorySelectForManageTool(category.id)
         } else {
-            console.log("TODO: Move to word list page")
+            let href = "/category/area/"
+
+            if (category.id == null) {
+                href += "-"
+            } else {
+                let parent = document.getElementById(button.dataset.parentId).parentElement.querySelector("button")
+                href += parent.innerText
+
+                if (category.id > 0) {
+                    href += "/" + category.text
+                }
+            }
+
+            location.href = href
         }
     })
 
