@@ -1,6 +1,6 @@
 function fetchData(wordId) {
     try {
-        console.log(Swal)
+        console.log(Swal != undefined)
     } catch {
         setTimeout(() => {
             fetchData(wordId)
@@ -25,7 +25,10 @@ function fetchData(wordId) {
 
                 document.getElementById("word").value = json.payload.word
                 document.querySelector("select").value = json.payload.category ?? "x"
-                tinymce.activeEditor.setContent(json.payload.meaning)
+
+                setTimeout(() => {
+                    tinymce.activeEditor.setContent(json.payload.meaning)
+                }, 100)
             } else {
                 Swal.fire({
                     html: json.message,
