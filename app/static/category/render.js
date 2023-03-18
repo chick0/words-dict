@@ -1,3 +1,26 @@
+function getButton(category) {
+    const button = document.createElement("button")
+
+    if (category.id == null) {
+        button.id = "null"
+    } else {
+        button.id = `category-${category.id}`
+    }
+
+    button.innerText = category.text
+    button.dataset.parentId = `category-${category.parent}`
+
+    button.addEventListener("click", () => {
+        if (isManageMode) {
+            categorySelectForManageTool(category.id)
+        } else {
+            console.log("TODO: Move to word list page")
+        }
+    })
+
+    return button
+}
+
 function getArea(category) {
     const li = document.createElement("li")
     li.classList.add("mb-1")
@@ -23,11 +46,11 @@ function getArea(category) {
 
         button.innerText = category.text
 
-        button.addEventListener("click", () => {
-            if (isManageMode) {
+        if (isManageMode) {
+            button.addEventListener("click", () => {
                 categorySelectForManageTool(category.id)
-            }
-        })
+            })
+        }
 
         li.appendChild(button)
 
@@ -49,23 +72,23 @@ function getArea(category) {
     } else {
         const ul = document.querySelector(`#${parentId} > ul`)
 
+        if (!isManageMode && ul.childNodes.length == 0) {
+            const li = document.createElement("li")
+            ul.appendChild(li)
+
+            li.appendChild(
+                getButton({
+                    id: null,
+                    text: "하위 카테고리 없음",
+                    parent: category.parent,
+                })
+            )
+        }
+
         const li = document.createElement("li")
         ul.appendChild(li)
 
-        const button = document.createElement("button")
-        button.id = `category-${category.id}`
-        button.innerText = category.text
-        button.dataset.parentId = parentId
-
-        button.addEventListener("click", () => {
-            if (isManageMode) {
-                categorySelectForManageTool(category.id)
-            } else {
-                alert("페이지 이동")
-            }
-        })
-
-        li.appendChild(button)
+        li.appendChild(getButton(category))
     }
 
     display.appendChild(li)
@@ -97,15 +120,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 const li = document.createElement("li")
                 ul.appendChild(li)
 
-                const button = document.createElement("button")
-                button.id = "null"
-                button.innerText = "카테고리 없음"
-
-                button.addEventListener("click", () => {
-                    alert("페이지 이동")
-                })
-
-                li.appendChild(button)
+                li.appendChild(
+                    getButton({
+                        id: null,
+                        text: "카테고리 없음",
+                        parent: null,
+                    })
+                )
             }
 
             // 상위 카테고리 렌더링
