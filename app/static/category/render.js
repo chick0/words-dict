@@ -68,22 +68,22 @@ function getArea(category) {
         const ul = document.createElement("ul")
         ul.classList.add("btn-toggle-nav", "list-unstyled", "fw-normal", "pb-1", "small")
 
-        text.appendChild(ul)
-    } else {
-        const ul = document.querySelector(`#${parentId} > ul`)
-
-        if (!isManageMode && ul.childNodes.length == 0) {
+        if (!isManageMode) {
             const li = document.createElement("li")
             ul.appendChild(li)
 
             li.appendChild(
                 getButton({
-                    id: -category.parent,
+                    id: -category.id,
                     text: "하위 카테고리 없음",
-                    parent: category.parent,
+                    parent: category.id,
                 })
             )
         }
+
+        text.appendChild(ul)
+    } else {
+        const ul = document.querySelector(`#${parentId} > ul`)
 
         const li = document.createElement("li")
         ul.appendChild(li)
